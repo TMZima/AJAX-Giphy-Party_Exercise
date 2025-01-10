@@ -2,19 +2,38 @@
 // working API key //
 const giphyApiKey = "Z4xt2m0XuWmMRab5Ii0TuxqSqlPDlD9E";
 
-// axios
-//   .get(
-//     `http://api.giphy.com/v1/gifs/search?q=ice&api_key=${giphyApiKey}&limit=10`
-//   )
-//   .then((result) => {
-//     console.log(result);
-//   });
-const img = document.getElementById("img");
+const input = document.getElementById("searchBar");
+const createGif = document.getElementById("searchBtn");
+const removeGifs = document.getElementById("deleteBtn");
+const displayGif = document.getElementById("displayDiv");
 
-async function giphyRequest() {
+let contentSet = false;
+
+createGif.addEventListener("click", function () {
+  generateGif(input.value);
+  divCleared();
+});
+
+removeGifs.addEventListener("click", function () {
+  displayDiv.innerHTML = "";
+  displayDiv.innerHTML = "... Your GIFs here ...";
+});
+
+async function generateGif(query) {
+  let img = document.createElement("img");
+
   const response = await axios.get(
-    `http://api.giphy.com/v1/gifs/trending?api_key=MhAodEJIJxQMxW9XqxKjyXfNYdLoOIym`
+    `http://api.giphy.com/v1/gifs/search?q=${query}&api_key=${giphyApiKey}&limit=10`
   );
-  console.log(response.data.data[0].images.downsized);
+  img.src = response.data.data[3].images.downsized.url;
+  img.classList.add("gifImg");
+  displayGif.appendChild(img);
+  //   console.log(response.data.data[0].images);
 }
-giphyRequest();
+
+function divCleared() {
+  if (!contentSet) {
+    displayGif.innerHTML = "";
+    contentSet = true;
+  }
+}

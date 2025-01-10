@@ -1,1 +1,62 @@
-/* Your Styles Here */
+main {
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  text-align: center;
+}
+
+.submit-form {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 1em;
+  border-radius: 5px;
+  margin-top: 1em;
+}
+
+input {
+  border-color: none;
+  height: 2em;
+  border-radius: 4px;
+}
+
+button {
+  border: none;
+  border-radius: 10px;
+  padding: 1em 2em;
+}
+
+.generate {
+  background-color: hsl(195, 98%, 50%);
+}
+
+.generate:active {
+  background-color: hsla(195, 98%, 50%, 0.7);
+}
+
+.delete {
+  background-color: rgb(250, 75, 160);
+}
+
+.delete:active {
+  background-color: rgba(250, 75, 160, 0.7);
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.gifDisplay {
+  display: inline-flex;
+  flex-direction: row;
+  border: 2px solid hsl(195, 98%, 50%);
+  border-radius: 5px;
+  margin-top: 1em;
+  padding: 1em;
+}
+
+.gifImg {
+  padding: 2em;
+}
