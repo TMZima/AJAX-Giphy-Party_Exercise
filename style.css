@@ -49,14 +49,28 @@ button:hover {
 }
 
 .gifDisplay {
-  display: inline-flex;
-  flex-direction: row;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   border: 2px solid hsl(195, 98%, 50%);
   border-radius: 5px;
   margin-top: 1em;
   padding: 1em;
+  max-width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 200px;
+  min-width: 85%;
 }
 
 .gifImg {
-  padding: 2em;
+  display: flex;
+  align-content: center;
+  padding: 1em;
+}
+
+.gifDisplay.hasImg {
+  justify-content: flex-start;
 }
