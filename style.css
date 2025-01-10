@@ -58,11 +58,11 @@ button:hover {
   border-radius: 5px;
   margin-top: 1em;
   padding: 1em;
-  max-width: 85%;
+  max-width: 90%;
   margin-left: auto;
   margin-right: auto;
   min-height: 200px;
-  min-width: 85%;
+  min-width: 90%;
 }
 
 .gifImg {
@@ -72,5 +72,5 @@ button:hover {
 }
 
 .gifDisplay.hasImg {
-  justify-content: flex-start;
+  justify-content: center;
 }

@@ -1,7 +1,6 @@
-// look back at the <readme.md> file for some hints //
-// working API key //
-// const giphyApiKey = "Z4xt2m0XuWmMRab5Ii0TuxqSqlPDlD9E";
-const giphyApiKey = "MhAodEJIJxQMxW9XqxKjyXfNYdLoOIym";
+// Working API keys
+const giphyApiKey1 = "Z4xt2m0XuWmMRab5Ii0TuxqSqlPDlD9E";
+const giphyApiKey2 = "MhAodEJIJxQMxW9XqxKjyXfNYdLoOIym";
 
 const input = document.getElementById("searchBar");
 const createGif = document.getElementById("searchBtn");
@@ -10,47 +9,66 @@ const displayGif = document.getElementById("displayDiv");
 
 let contentSet = false;
 
-input.addEventListener("keypress", function (e) {
+// Handle Enter key press in the input field
+input.addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
     e.preventDefault();
     createGif.click();
   }
 });
 
-createGif.addEventListener("click", function (e) {
+// Handle search button click
+createGif.addEventListener("click", (e) => {
   e.preventDefault();
-  divCleared();
+  clearDisplay();
   generateGif(input.value);
 });
 
-removeGifs.addEventListener("click", function () {
-  displayGif.innerHTML = "... Your GIFs here ...";
-  displayGif.classList.remove("hasImg");
-  contentSet = false;
+//Handle delete button click
+removeGifs.addEventListener("click", () => {
+  resetDisplay();
 });
 
+// Fetch and display GIF based on the query
 async function generateGif(query) {
-  let img = document.createElement("img");
-
-  const response = await axios.get(
-    `http://api.giphy.com/v1/gifs/search?q=${query}&api_key=${giphyApiKey}&limit=10`
-  );
-  img.src = response.data.data[3].images.fixed_width.url;
-  img.classList.add("gifImg");
-  displayGif.appendChild(img);
-  displayGif.classList.add("hasImg");
-  //   console.log(response.data);
+  try {
+    const response = await axios.get(
+      `http://api.giphy.com/v1/gifs/search?q=${query}&api_key=${giphyApiKey2}`
+    );
+    const gifs = response.data.data;
+    if (gifs.length === 0) {
+      displayGif.innerHTML = "No GIFs found.";
+      return;
+    }
+    const randomIndex = Math.floor(Math.random() * gifs.length);
+    const img = createGifElement(gifs[randomIndex].images.fixed_width.url);
+    displayGif.appendChild(img);
+    displayGif.classList.add("hasImg");
+  } catch (error) {
+    console.error("Error fetching GIF:", error);
+    displayGif.innerHTML = "Error fetching GIF. Please try again.";
+  }
 }
 
-function divCleared() {
+// Clear display div
+function clearDisplay() {
   if (!contentSet) {
     displayGif.innerHTML = "";
     contentSet = true;
   }
 }
 
-// ERRORS
-// -bad apiKey
-// -Too many requests
-// -No gifs found
-// -
+// Reset display div
+function resetDisplay() {
+  displayGif.innerHTML = "... Your GIFs here ...";
+  displayGif.classList.remove("hasImg");
+  contentSet = false;
+}
+
+// Create GIF element
+function createGifElement(src) {
+  const img = document.createElement("img");
+  img.src = src;
+  img.classList.add("gifImg");
+  return img;
+}
